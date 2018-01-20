@@ -3,14 +3,9 @@
 session_start();
 include 'conn.php';
 
-if(isset($_SESSION['user_name']) && !empty($_SESSION['user_name']))
-	header("location: profile.php");
 
 if(isset($_POST["signin"]))
-{
-	echo $user_name=$_POST["username"];
-	echo $password=$_POST["password"];
-	
+{	
 	$q="SELECT * FROM user WHERE user_id='$user_name' and password='$password'";
 	$result = $conn->query($q);
 	
@@ -18,7 +13,7 @@ if(isset($_POST["signin"]))
 	{
 		$row=$result->fetch_assoc();
 		$_SESSION['user_name']=$row["user_id"];
-		header("location:profile.php");
+		header("location: profile.php");
 	}
 	else
 	{
@@ -67,6 +62,8 @@ if ( isset ($_POST["signup"] ))
 		}
 	}
 }
+if(isset($_SESSION['user_name']) && !empty($_SESSION['user_name']))
+	header("location: profile.php");
 ?>
 
 <!DOCTYPE html>
@@ -105,6 +102,7 @@ if ( isset ($_POST["signup"] ))
 				onLoad: onLinkedInLoad
 				scope: r_basicprofile r_emailaddress
 		</script>
+
 
     </head>
 
@@ -158,6 +156,9 @@ if ( isset ($_POST["signup"] ))
 		                        	<a class="btn btn-link-1 btn-link-1-twitter" href="#">
 		                        		<i class="fa fa-twitter"></i> Twitter
 		                        	</a>
+									<a href="/fbLogin.php" class="btn btn-link-1 btn-link-1-facebook">
+										<i class="fa fa-facebook"></i>Facebook
+									 </a>
 		                        	
 	                        	</div>
 	                        </div>
@@ -253,7 +254,7 @@ if ( isset ($_POST["signup"] ))
 								</div>
 							</div>
 						</div>
-					</div>                    
+					</div>          
                 </div>
             </div>
             
@@ -262,6 +263,12 @@ if ( isset ($_POST["signup"] ))
        
         <!-- Javascript -->
 		<script type="text/javascript">
+		
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
 		
     function onLinkedInLoad() {
         IN.Event.on(IN, "auth", getProfileData);
@@ -307,7 +314,7 @@ if ( isset ($_POST["signup"] ))
 	
 	function saveUserData(userData){
 		
-			$.post("http://localhost/internship/saveUserData.php", {oauth_provider:'linkedin',userData: JSON.stringify(userData)}, function(data){ 
+			$.post("http://localhost/saveUserData.php", {oauth_provider:'linkedin',userData: JSON.stringify(userData)}, function(data){ 
 			alert ("Data Loaded: " + data )});
 		
 	}

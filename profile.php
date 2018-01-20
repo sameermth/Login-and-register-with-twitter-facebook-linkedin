@@ -59,9 +59,7 @@
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
-		<script type="text/javascript" src="//platform.linkedin.com/in.js">
-				api_key:  81axtg5q8583a2
-		</script>
+		
 
     </head>
 
