@@ -4,8 +4,10 @@ session_start();
 include 'conn.php';
 
 
-if(isset($_POST["signin"]))
+if(isset($_POST['signin']))
 {	
+	$user_name = $_POST['username'];
+	$password  = $_POST['password'];
 	$q="SELECT * FROM user WHERE user_id='$user_name' and password='$password'";
 	$result = $conn->query($q);
 	
@@ -64,6 +66,8 @@ if ( isset ($_POST["signup"] ))
 }
 if(isset($_SESSION['user_name']) && !empty($_SESSION['user_name']))
 	header("location: profile.php");
+if(isset($_SESSION['facebook_access_token']))
+	header("location: fbLogin.php");
 ?>
 
 <!DOCTYPE html>
